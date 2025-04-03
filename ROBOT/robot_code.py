@@ -7,7 +7,7 @@ def handler(channel, data):
     print(f"""
         channel :  {channel}
         id :   {msg.id}
-        x_position : {msg.x_position}
+        speed: {msg.speed}
     """)
 
 lc = lcm.LCM()

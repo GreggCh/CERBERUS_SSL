@@ -7,28 +7,26 @@ DO NOT MODIFY BY HAND!!!!
 from io import BytesIO
 import struct
 
-class IA(object):
+class VISION(object):
 
-    __slots__ = ["id", "speed"]
+    __slots__ = ["id"]
 
-    __typenames__ = ["int8_t", "double"]
+    __typenames__ = ["int8_t"]
 
-    __dimensions__ = [None, None]
+    __dimensions__ = [None]
 
     def __init__(self):
         self.id = 0
         """ LCM Type: int8_t """
-        self.speed = 0.0
-        """ LCM Type: double """
 
     def encode(self):
         buf = BytesIO()
-        buf.write(IA._get_packed_fingerprint())
+        buf.write(VISION._get_packed_fingerprint())
         self._encode_one(buf)
         return buf.getvalue()
 
     def _encode_one(self, buf):
-        buf.write(struct.pack(">bd", self.id, self.speed))
+        buf.write(struct.pack(">b", self.id))
 
     @staticmethod
     def decode(data: bytes):
@@ -36,31 +34,31 @@ class IA(object):
             buf = data
         else:
             buf = BytesIO(data)
-        if buf.read(8) != IA._get_packed_fingerprint():
+        if buf.read(8) != VISION._get_packed_fingerprint():
             raise ValueError("Decode error")
-        return IA._decode_one(buf)
+        return VISION._decode_one(buf)
 
     @staticmethod
     def _decode_one(buf):
-        self = IA()
-        self.id, self.speed = struct.unpack(">bd", buf.read(9))
+        self = VISION()
+        self.id = struct.unpack(">b", buf.read(1))[0]
         return self
 
     @staticmethod
     def _get_hash_recursive(parents):
-        if IA in parents: return 0
-        tmphash = (0x930c4b57e0b12ea6) & 0xffffffffffffffff
+        if VISION in parents: return 0
+        tmphash = (0x68dd721286446c8) & 0xffffffffffffffff
         tmphash  = (((tmphash<<1)&0xffffffffffffffff) + (tmphash>>63)) & 0xffffffffffffffff
         return tmphash
     _packed_fingerprint = None
 
     @staticmethod
     def _get_packed_fingerprint():
-        if IA._packed_fingerprint is None:
-            IA._packed_fingerprint = struct.pack(">Q", IA._get_hash_recursive([]))
-        return IA._packed_fingerprint
+        if VISION._packed_fingerprint is None:
+            VISION._packed_fingerprint = struct.pack(">Q", VISION._get_hash_recursive([]))
+        return VISION._packed_fingerprint
 
     def get_hash(self):
         """Get the LCM hash of the struct"""
-        return struct.unpack(">Q", IA._get_packed_fingerprint())[0]
+        return struct.unpack(">Q", VISION._get_packed_fingerprint())[0]
 

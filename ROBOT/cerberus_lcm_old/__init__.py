@@ -5,3 +5,4 @@ lcm-gen 1.5.1
 """
 
 from .IA import IA as IA
+from .VISION import VISION as VISION
