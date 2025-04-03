@@ -1,5 +1,5 @@
 import lcm
-from ..LCM.cerberus_lcm import IA
+from cerberus_lcm import IA
 
 def handler(channel, data):
     msg = IA.decode(data)
