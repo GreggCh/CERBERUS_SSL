@@ -10,6 +10,7 @@ while True:
     msg.id = 1
     msg.x_position = 5.6 + rand
     msg.y_position = 3.0 - rand
+    msg.speed = 1.0 + rand
  
     lc.publish("IA", msg.encode())
 
