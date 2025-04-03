@@ -5,4 +5,5 @@ struct IA
     int8_t id;
     double x_position;
     double y_position;
+    double speed;
 }
