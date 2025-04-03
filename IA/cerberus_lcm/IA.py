@@ -9,11 +9,11 @@ import struct
 
 class IA(object):
 
-    __slots__ = ["id", "x_position", "y_position", "speed"]
+    __slots__ = ["id", "x_position", "y_position"]
 
-    __typenames__ = ["int8_t", "double", "double", "double"]
+    __typenames__ = ["int8_t", "double", "double"]
 
-    __dimensions__ = [None, None, None, None]
+    __dimensions__ = [None, None, None]
 
     def __init__(self):
         self.id = 0
@@ -21,8 +21,6 @@ class IA(object):
         self.x_position = 0.0
         """ LCM Type: double """
         self.y_position = 0.0
-        """ LCM Type: double """
-        self.speed = 0.0
         """ LCM Type: double """
 
     def encode(self):
@@ -32,7 +30,7 @@ class IA(object):
         return buf.getvalue()
 
     def _encode_one(self, buf):
-        buf.write(struct.pack(">bddd", self.id, self.x_position, self.y_position, self.speed))
+        buf.write(struct.pack(">bdd", self.id, self.x_position, self.y_position))
 
     @staticmethod
     def decode(data: bytes):
@@ -47,13 +45,13 @@ class IA(object):
     @staticmethod
     def _decode_one(buf):
         self = IA()
-        self.id, self.x_position, self.y_position, self.speed = struct.unpack(">bddd", buf.read(25))
+        self.id, self.x_position, self.y_position = struct.unpack(">bdd", buf.read(17))
         return self
 
     @staticmethod
     def _get_hash_recursive(parents):
         if IA in parents: return 0
-        tmphash = (0xf041e503c68686a0) & 0xffffffffffffffff
+        tmphash = (0x68e7827912658510) & 0xffffffffffffffff
         tmphash  = (((tmphash<<1)&0xffffffffffffffff) + (tmphash>>63)) & 0xffffffffffffffff
         return tmphash
     _packed_fingerprint = None
