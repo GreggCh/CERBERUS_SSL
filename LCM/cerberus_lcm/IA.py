@@ -7,6 +7,8 @@ DO NOT MODIFY BY HAND!!!!
 from io import BytesIO
 import struct
 
+#simulando uma atualização
+
 class IA(object):
 
     __slots__ = ["id", "x_position", "y_position", "speed"]
